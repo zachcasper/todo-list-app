@@ -57,6 +57,14 @@ resource demoImage 'Radius.Compute/containerImages@2025-08-01-preview' = {
   }
 }
 
+resource redisCache 'Radius.Data/redisCaches@2025-08-01-preview' = {
+  name: 'redis'
+  properties: {
+    environment: environment
+    application: todoApp.id
+  }
+}
+
 resource todoContainer 'Radius.Compute/containers@2025-08-01-preview' = {
   name: 'todo-list-frontend'
   properties: {
@@ -78,6 +86,9 @@ resource todoContainer 'Radius.Compute/containers@2025-08-01-preview' = {
       }
       demoContainerImage: {
         source: demoImage.id
+      }
+      redis: {
+        source: redisCache.id
       }
     }
   }
